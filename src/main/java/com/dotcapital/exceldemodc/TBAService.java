@@ -6,5 +6,6 @@ import java.time.LocalDate;
 public interface TBAService {
     void generateF(LocalDate now);
     void createTBA(LocalDate now) throws IOException;
+    void createSmallExcell(LocalDate now) throws IOException;
 
 }

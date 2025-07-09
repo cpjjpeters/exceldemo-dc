@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -162,6 +163,32 @@ public class TBAServiceImpl implements TBAService {
         FileOutputStream outputStream = new FileOutputStream(fileLocation);
         workbook.write(outputStream);
         workbook.close();
+    }
+
+    @Override
+    public void createSmallExcell(LocalDate now) throws IOException {
+        XSSFWorkbook wb = new XSSFWorkbook();
+        LOGGER.info("Creating small excel file");
+        Sheet sheet = wb.createSheet("Small Sheet");
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("Name");
+        headerRow.createCell(1).setCellValue("Age");
+        headerRow.createCell(2).setCellValue("Department");
+
+        XSSFRow dataRow = (XSSFRow) sheet.createRow(1);
+        dataRow.createCell(0).setCellValue("Carl");
+        dataRow.createCell(1).setCellValue("61");
+        dataRow.createCell(2).setCellValue("IT Department");
+
+        File currDir = new File(".");
+        String path = currDir.getAbsolutePath();
+        String fileLocation = path.substring(0, path.length() - 1) + "employee.xlsx";
+        LOGGER.info("Creating {} in {}", fileLocation, path);
+        FileOutputStream outputStream = new FileOutputStream(fileLocation);
+        wb.write(outputStream);
+        wb.close();
+
+
     }
 //    @Override
 //    public void generate(LocalDate date) {

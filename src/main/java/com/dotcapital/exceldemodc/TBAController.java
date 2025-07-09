@@ -39,4 +39,11 @@ public class TBAController {
         tbaService.createTBA(LocalDate.now());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PostMapping ("/employee")
+    public ResponseEntity<Void> employee() throws IOException {
+        log.info("Creating employeefile from scratch");
+        tbaService.createSmallExcell(LocalDate.now());
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
