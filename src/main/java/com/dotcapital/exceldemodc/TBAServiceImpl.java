@@ -180,6 +180,10 @@ public class TBAServiceImpl implements TBAService {
         dataRow.createCell(1).setCellValue("61");
         dataRow.createCell(2).setCellValue("IT Department");
 
+        Sheet sheet2 = wb.createSheet("Sheet2");
+        int rowCount1 = sheet.getPhysicalNumberOfRows();
+        int rowCount2 = sheet2.getPhysicalNumberOfRows();
+        LOGGER.info("Row count in Sheet1: {}, Row count in Sheet2: {}", rowCount1, rowCount2);
         File currDir = new File(".");
         String path = currDir.getAbsolutePath();
         String fileLocation = path.substring(0, path.length() - 1) + "employee.xlsx";
