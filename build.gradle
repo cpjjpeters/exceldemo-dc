@@ -32,6 +32,15 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // SLF4J for logging (already present, but ensure it's included)
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+
+    // Spring Boot starter (already present, but ensure it's included)
+    implementation 'org.springframework.boot:spring-boot-starter'
+    // Apache POI for Excel (XLSM support)
+    implementation 'org.apache.poi:poi-ooxml:5.2.5'
+    implementation 'org.apache.poi:poi-ooxml-full:5.2.5'
+    implementation 'org.apache.poi:poi:5.2.5'
 }
 
 tasks.named('test') {
