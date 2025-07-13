@@ -12,4 +12,8 @@ public interface TBAService {
     void createSmallExcell(LocalDate now) throws IOException;
 
     List<ProductIssueEntity> getListOfProductIssues();
+
+    byte[] exportProductIssuesToExcel(List<ProductIssueEntity> allProductIssues);
+
+    void saveProductIssuesToExcelFile(List<ProductIssueEntity> allProductIssues, String filePath) throws IOException;
 }

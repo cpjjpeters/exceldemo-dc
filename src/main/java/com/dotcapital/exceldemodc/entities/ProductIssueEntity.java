@@ -68,6 +68,5 @@ public class ProductIssueEntity {
                 '}';
     }
 
-    public void setId(Long id) {
-    }
+
 }

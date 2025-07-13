@@ -2,6 +2,7 @@ package com.dotcapital.exceldemodc.services;
 
 import com.dotcapital.exceldemodc.entities.ProductIssueEntity;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductIssueService {
@@ -39,4 +40,6 @@ public interface ProductIssueService {
     ProductIssueEntity getProductIssueById(Long id);
 
     boolean deleteProductIssue(Long id);
+
+    void exportProductIssuesToExcelFile(List<ProductIssueEntity> allProductIssues, String filePath) throws IOException;
 }

@@ -64,4 +64,24 @@ public class TBAController {
         tbaService.createSmallExcell(LocalDate.now());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PostMapping(value = "/exportProductIssues", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    public ResponseEntity<byte[]> exportProductIssuesToExcel() throws IOException {
+        log.info("Exporting all product issues to Excel");
+        List<ProductIssueEntity> allProductIssues = productIssueService.getAllProductIssues();
+        byte[] excelData = tbaService.exportProductIssuesToExcel(allProductIssues);
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=product_issues.xlsx")
+                .body(excelData);
+    }
+
+    @PostMapping("/saveProductIssuesExcel")
+    public ResponseEntity<Void> saveProductIssuesExcel() throws IOException {
+        log.info("Saving all product issues to Excel file");
+        List<ProductIssueEntity> allProductIssues = productIssueService.getAllProductIssues();
+        String filePath = "product_issues_" + LocalDate.now() + ".xlsx";
+        tbaService.saveProductIssuesToExcelFile(allProductIssues, filePath);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

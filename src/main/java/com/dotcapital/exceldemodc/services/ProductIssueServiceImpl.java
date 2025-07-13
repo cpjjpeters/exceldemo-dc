@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +44,7 @@ public class ProductIssueServiceImpl implements ProductIssueService {
         log.debug("updateProductIssue");
         Optional<ProductIssueEntity> existing = this.productIssueRepository.findById(id);
         if (existing.isPresent()) {
-            productIssue.setId(id);
+            productIssue.setpId(id);
             return this.productIssueRepository.save(productIssue);
         }
         return null;
@@ -63,5 +64,10 @@ public class ProductIssueServiceImpl implements ProductIssueService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void exportProductIssuesToExcelFile(List<ProductIssueEntity> allProductIssues, String filePath) throws IOException {
+
     }
 }

@@ -60,6 +60,28 @@ public class TBAServiceImpl implements TBAService {
 //    }
 
     @Override
+    public void saveProductIssuesToExcelFile(List<ProductIssueEntity> allProductIssues, String filePath) throws IOException {
+        try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Product Issues");
+            Row header = sheet.createRow(0);
+            header.createCell(0).setCellValue("ID");
+            header.createCell(1).setCellValue("Product Name");
+            header.createCell(2).setCellValue("Issue Description");
+            header.createCell(3).setCellValue("Status");
+            int rowIdx = 1;
+            for (ProductIssueEntity issue : allProductIssues) {
+                Row row = sheet.createRow(rowIdx++);
+                row.createCell(0).setCellValue(issue.getpId());
+                row.createCell(1).setCellValue(issue.getProductName());
+                row.createCell(2).setCellValue(issue.getIssueDescription());
+                row.createCell(3).setCellValue(issue.getStatus());
+            }
+            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                workbook.write(fileOut);
+            }
+        }
+    }
+    @Override
     public void generateF(LocalDate date) {
         LOGGER.info("Generating TBA from file for date: {}", date);
         String mainDirectoryTemplate = "TBAs and CPs Request Template.xlsm";
@@ -206,6 +228,11 @@ public class TBAServiceImpl implements TBAService {
 
         List<ProductIssueEntity> productIssueEntityList = productIssueRepository.findByStatus("ACTIVE");
         return productIssueEntityList;
+    }
+
+    @Override
+    public byte[] exportProductIssuesToExcel(List<ProductIssueEntity> allProductIssues) {
+        return new byte[0];
     }
 
     public List<ProductIssueEntity> getAllProductIssues() {
