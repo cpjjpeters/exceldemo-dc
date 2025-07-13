@@ -1,6 +1,7 @@
 package com.dotcapital.exceldemodc;
 
-import org.apache.poi.openxml4j.util.ZipSecureFile;
+import com.dotcapital.exceldemodc.entities.ProductIssueEntity;
+import com.dotcapital.exceldemodc.repositories.ProductIssueRepository;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -16,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class TBAServiceImpl implements TBAService {
@@ -43,6 +44,11 @@ public class TBAServiceImpl implements TBAService {
     private static final String PUBLIC_SHEET = "Publ - SemiPubl";
 
     private static final String XLSM_CONTENT_TYPE = "application/vnd.ms-excel.sheet.macroEnabled.12";
+    private final ProductIssueRepository productIssueRepository;
+
+    public TBAServiceImpl(ProductIssueRepository productIssueRepository) {
+        this.productIssueRepository = productIssueRepository;
+    }
 
 //    private final StorageService storageService;
 //    private final InternalCodeService internalCodeService;
@@ -193,6 +199,19 @@ public class TBAServiceImpl implements TBAService {
         wb.close();
 
 
+    }
+
+    @Override
+    public List<ProductIssueEntity> getListOfProductIssues() {
+
+        List<ProductIssueEntity> productIssueEntityList = productIssueRepository.findByStatus("ACTIVE");
+        return productIssueEntityList;
+    }
+
+    public List<ProductIssueEntity> getAllProductIssues() {
+
+        List<ProductIssueEntity> productIssueEntityList = productIssueRepository.findAll();
+        return productIssueEntityList;
     }
 //    @Override
 //    public void generate(LocalDate date) {
